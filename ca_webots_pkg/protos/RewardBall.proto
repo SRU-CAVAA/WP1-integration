@@ -1,0 +1,38 @@
+#VRML_SIM R2022b utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+
+PROTO RewardBall [
+  field SFColor colorOverride    1 1 1
+  field SFFloat IBLStrength      1
+  field SFVec3f    translation       0 0 0.91
+  field SFRotation rotation          0 0 1 0
+  field SFString   name              "RewardBall"
+]
+
+
+{
+  Solid {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    children [
+      DEF BALL_SHAPE Shape {
+        appearance PBRAppearance {
+          baseColor IS colorOverride
+          roughness 1
+          metalness 0
+          
+          normalMapFactor 0.5
+          IBLStrength IS IBLStrength
+          
+          occlusionMapStrength 1
+        }
+        geometry Sphere {
+          radius 0.04
+          subdivision 5
+        }
+      }
+    ]
+  }
+}

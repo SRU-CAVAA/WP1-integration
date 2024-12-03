@@ -1,0 +1,148 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/RectangleArena.proto"
+IMPORTABLE EXTERNPROTO "../protos/E-puck.proto"
+IMPORTABLE EXTERNPROTO "../protos/RewardBall.proto"
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/BrushedAluminium.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/Grass.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/RedBricks.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/BlanketFabric.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/RoughConcrete.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/RoughOak.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/RoughPine.proto"
+EXTERNPROTO "../protos/HexagonalColorFloor.proto"
+EXTERNPROTO "../protos/WallL.proto"
+EXTERNPROTO "../protos/WallR.proto"
+
+
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.30805051369252473 -0.30833774127767 -0.9000181766595363 4.608160630499681
+  position 0.022154514734621426 -1.9837459285443022 1.4896305315129053
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+  texture     "noon_sunny_empty"
+  luminosity  2.8
+  castShadows TRUE
+}
+RectangleArena {
+  floorSize 1.25 1.25
+  floorTileSize 1.25 1.25
+  floorAppearance HexagonalColorFloor {
+  }
+  wallAppearance BrushedAluminium {
+    colorOverride 0.8 0.6 0.4
+    IBLStrength 7
+  }
+}
+
+Wall {
+  translation -0.18 -0.190056 0
+  rotation 0 0 1 1.5700003061004253
+  size 0.875 0.01 0.1
+  appearance WallL {
+    IBLStrength 5
+  }
+}
+Wall {
+  translation -0.4 0.25 7.03921e-07
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(2)"
+  size 0.45 0.01 0.1
+  appearance RoughOak {
+    colorOverride 0.6 0.3 1
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 5
+  }
+}
+Wall {
+  translation 0.4 0.25 -3.09734e-06
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(3)"
+  size 0.45 0.01 0.1
+  appearance RoughPine {
+    colorOverride 1 0.9 0
+    textureTransform TextureTransform {
+      scale 3 1
+    }
+    IBLStrength 5
+  }
+}
+Wall {
+  translation 0.18 -0.189952 0
+  rotation 0 0 1 1.57
+  name "wall(1)"
+  size 0.875 0.01 0.1
+  appearance WallR {
+    IBLStrength 5
+  }
+}
+
+Wall {
+  translation -0.315 0.625 0
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(4)"
+  size 0.63 0.001 0.1
+  appearance RoughConcrete {
+    colorOverride 1 1 1
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 5
+  }
+}
+
+Wall {
+  translation 0.315 0.625 0
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(5)"
+  size 0.63 0.001 0.1
+  appearance RoughConcrete {
+  colorOverride 0 0 0
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 5
+  }
+}
+
+
+Wall {
+  translation -0.625 0.44 0
+  rotation 0 0 1 1.5708
+  name "wallLreward"
+  size 0.37 0.001 0.1
+  appearance RoughConcrete {
+  colorOverride 0 1 0
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 5
+  }
+}
+
+
+Wall {
+  translation 0.625 0.44 0
+  rotation 0 0 1 1.5708
+  name "wallRreward"
+  size 0.37 0.001 0.1
+  appearance RoughConcrete {
+  colorOverride 1 0 0
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 5
+  }
+}

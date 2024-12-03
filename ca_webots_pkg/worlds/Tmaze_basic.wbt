@@ -1,0 +1,148 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "../protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/BrushedAluminium.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.30805051369252473 -0.30833774127767 -0.9000181766595363 4.608160630499681
+  position 0.022154514734621426 -1.9837459285443022 1.4896305315129053
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 1.25 1.25
+  floorTileSize 0.25 0.25
+  wallAppearance BrushedAluminium {
+    colorOverride 0.7 0.7 1
+    IBLStrength 10
+  }
+}
+DEF green_ball Solid {
+  translation 0.55 0.45 0.0396
+  children [
+    DEF ball_g Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.04
+        subdivision 5
+      }
+    }
+  ]
+  name "green_ball"
+}
+DEF red_ball Solid {
+  translation -0.55 0.45 0.0396
+  children [
+    DEF ball_g Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.04
+        subdivision 5
+      }
+    }
+  ]
+  name "red_ball"
+}
+Robot {
+  name "supervisor"
+  controller "<none>"
+  supervisor FALSE
+}
+Wall {
+  translation -0.18 -0.190056 0
+  rotation 0 0 1 1.5700003061004253
+  size 0.875 0.01 0.1
+  appearance Roughcast {
+    colorOverride 1 0.2 0.1
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 10
+  }
+}
+Wall {
+  translation -0.4 0.25 7.03921e-07
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(2)"
+  size 0.45 0.01 0.1
+  appearance Roughcast {
+    colorOverride 1 0.2 0.1
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 10
+  }
+}
+Wall {
+  translation 0.41 0.25 -3.09734e-06
+  rotation 0 1 0 4.692820414042842e-06
+  name "wall(3)"
+  size 0.45 0.01 0.1
+  appearance Roughcast {
+    colorOverride 0 0.7 0
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 10
+  }
+}
+Wall {
+  translation 0.19 -0.189952 0
+  rotation 0 0 1 1.57
+  name "wall(1)"
+  size 0.875 0.01 0.1
+  appearance Roughcast {
+    colorOverride 0 0.7 0
+    textureTransform TextureTransform {
+      scale 1 0.1
+    }
+    IBLStrength 10
+  }
+}
+DEF my_epuck E-puck {
+  hidden position_0_0 86.92906737541209
+  hidden position_0_1 76.23145890127293
+  hidden rotation_1 0 1 0 1.9699920309014736
+  hidden rotation_2 0 1 0 3.0203670376159866
+  translation 0.0 -0.5 0.0
+  rotation 0.0 0.0 1.0 1.57
+  name "my_epuck"
+  controller "<extern>"
+  camera_width 160
+  camera_height 120
+  distance_sensor_numberOfRays 3
+  turretSlot [
+    Compass {
+    }
+    GPS {
+    }
+  ]
+}
+PointLight {
+  attenuation 0 0 10
+  color 1 0 0
+  location -0.15 0.6 0.05
+}
+PointLight {
+  attenuation 0 0 10
+  color 0 1 0
+  location 0.15 0.6 0.05
+}
+

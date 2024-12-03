@@ -1,0 +1,46 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/RectangleArena.proto"
+IMPORTABLE EXTERNPROTO "../protos/E-puck.proto"
+IMPORTABLE EXTERNPROTO "../protos/RewardBall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/BrushedAluminium.proto"
+EXTERNPROTO "../protos/LinearTrackFloor.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.30805051369252473 -0.30833774127767 -0.9000181766595363 4.608160630499681
+  position 0.022154514734621426 -1.9837459285443022 1.4896305315129053
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 0.5 2.5
+  floorTileSize 0.5 2.5
+  floorAppearance LinearTrackFloor {
+  }
+  wallAppearance LinearTrackFloor {
+    colorOverride 0.7 0.7 1
+    IBLStrength 10
+    textureTransform TextureTransform {
+    rotation 1.6
+    }
+  }
+}
+
+
+Wall {
+  translation 0.253 -1.25 0.05
+  rotation -0.577 0.577 0.577 2.094
+  name "wall(1)"
+  size 0.1 0.01 2.5
+  appearance LinearTrackFloor {
+    IBLStrength 5
+  }
+}

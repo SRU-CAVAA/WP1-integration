@@ -1,0 +1,200 @@
+<?xml version="1.0" ?>
+<robot name="My epuck">
+    <webots>
+        <device reference="ps0" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps0</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps1" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps1</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps2" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps2</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps3" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps3</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps4" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps4</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps5" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps5</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps6" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps6</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ps7" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/ps7</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+
+        <device reference="tof" type="DistanceSensor">
+            <ros>
+                <topicName>/epuck_agent/tof</topicName>
+                <enabled>true</enabled>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+
+        <device reference="camera" type="Camera">
+            <ros>
+                <topicName>/epuck_agent/camera</topicName>
+            </ros>
+        </device>
+
+        <device reference="pi-puck led 0" type="LED">
+            <ros>
+                <topicName>/epuck_agent/pi_puck_led_0</topicName>
+            </ros>
+        </device>
+        <device reference="pi-puck led 1" type="Display">
+            <ros>
+                <topicName>/epuck_agent/pi_puck_led_1</topicName>
+            </ros>
+        </device>
+        <device reference="pi-puck led 2" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/pi_puck_led_2</topicName>
+            </ros>
+        </device>
+
+        <device reference="led0" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led0</topicName>
+            </ros>
+        </device>
+        <device reference="led1" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led1</topicName>
+            </ros>
+        </device>
+        <device reference="led2" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led2</topicName>
+            </ros>
+        </device>
+        <device reference="led3" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led3</topicName>
+            </ros>
+        </device>
+        <device reference="led4" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led4</topicName>
+            </ros>
+        </device>
+        <device reference="led5" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led5</topicName>
+            </ros>
+        </device>
+        <device reference="led6" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led6</topicName>
+            </ros>
+        </device>
+        <device reference="led7" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led7</topicName>
+            </ros>
+        </device>
+        <device reference="led8" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led8</topicName>
+            </ros>
+        </device>
+        <device reference="led9" type="LED">
+            <ros>
+                <topicName>/epuck_agent/led9</topicName>
+            </ros>
+        </device>
+
+        <device reference="ls0" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls0</topicName>
+            </ros>
+        </device>
+        <device reference="ls1" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls1</topicName>
+            </ros>
+        </device>
+        <device reference="ls2" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls2</topicName>
+            </ros>
+        </device>
+        <device reference="ls3" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls3</topicName>
+            </ros>
+        </device>
+        <device reference="ls4" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls4</topicName>
+            </ros>
+        </device>
+        <device reference="ls5" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls5</topicName>
+            </ros>
+        </device>
+        <device reference="ls6" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls6</topicName>
+            </ros>
+        </device>
+        <device reference="ls7" type="LightSensor">
+            <ros>
+                <topicName>/epuck_agent/ls7</topicName>
+            </ros>
+        </device>
+
+
+        <plugin type="ca_webots_pkg.epuck_agent.MyEpuckAgent" />
+    </webots>
+
+    <ros2_control name="WebotsControl" type="system">
+        <hardware>
+            <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </hardware>
+        <joint name="right wheel motor">
+            <state_interface name="position"/>
+            <command_interface name="velocity"/>
+        </joint>
+        <joint name="left wheel motor">
+            <state_interface name="position"/>
+            <command_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+</robot>
