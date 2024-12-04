@@ -44,14 +44,11 @@ class MyEpuckAgent:
         self.__node.get_logger().info('------------- ----------------- epuck_agent -------------- -------------')
 
     def __cmd_vel_callback(self, data):
-        self.action_2_time = self.time
-        self.elapsed_time = self.action_1_time - self.action_2_time
-        self.__node.get_logger().info('ELAPSED TIME')
-        self.__node.get_logger().info(str(self.elapsed_time))
-        self.action_1_time = self.action_2_time
         self.__epuck_motors.right_motor = data.right_motor
         self.__epuck_motors.left_motor = data.left_motor
         self.action_init_time = self.time
+        self.action_current_time = self.time - self.action_init_time
+
 
 
     def clock_callback(self, message):
@@ -63,13 +60,10 @@ class MyEpuckAgent:
 
 
     def step(self):
-        '''if self.action_current_time >= self.state_action_rate:
-                                    self.__epuck_motors.right_motor = 0
-                                    self.__epuck_motors.left_motor = 0
-                                    self.__node.get_logger().info('Architecture is computing next action - Stopping robot meanwhile')
-                                    self.__node.get_logger().info(str(self.action_current_time))
-                                    self.__node.get_logger().info(str(self.state_action_rate))
-                                    self.__node.get_logger().info('')'''
+        if self.action_current_time >= self.state_action_rate:
+            self.__node.get_logger().info('Warning - ACTION TIME SURPASSED: ' + str(self.action_current_time))
+            self.__epuck_motors.right_motor = 0
+            self.__epuck_motors.left_motor = 0
 
         rclpy.spin_once(self.__node, timeout_sec=0)
 
