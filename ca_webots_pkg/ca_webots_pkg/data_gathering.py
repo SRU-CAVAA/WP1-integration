@@ -64,6 +64,7 @@ class Data_gathering(Node):
         self.list_n_replays = []
         self.list_reward_value = []
         self.list_robot_action = []
+        self.list_retrieved_action = []
 
         self.AEunits = []
         
@@ -83,6 +84,7 @@ class Data_gathering(Node):
         self.reward_ID = 0
         self.n_replays = 0
         self.robot_action = [0, 0]
+        self.retrieved_action = False
 
         self.create_new_folder()
 
@@ -102,6 +104,7 @@ class Data_gathering(Node):
             self.list_n_replays.append(self.n_replays)
             self.list_reward_value.append(self.reward_values)
             self.list_robot_action.append(self.robot_action)
+            self.list_retrieved_action.append(self.retrieved_action)
 
 
     def agent_GPS_callback(self, message):
@@ -178,6 +181,7 @@ class Data_gathering(Node):
 
     def Robot_action_callback(self, message):
         self.robot_action = [message.right_motor, message.left_motor]
+        self.retrieved_action = message.retrieved_action
 
     def exp_time_callback(self, message):
         self.trial_time = round(message.time, 3)
@@ -238,7 +242,7 @@ class Data_gathering(Node):
                 csv_writer.writeheader()
                 self.first_trial = False
             for i in range(len(self.list_X)):
-                csv_writer.writerow({self.data_classes[0]: self.list_trial_number[i], self.data_classes[1]: self.list_trial_time[i], self.data_classes[2]: self.list_frame_ID[i], self.data_classes[3]: self.list_embedding[i], self.data_classes[4]: self.list_robot_action[i], self.data_classes[5]: self.list_X[i], self.data_classes[6]: self.list_Y[i], self.data_classes[7]: self.list_Z[i], self.data_classes[8]: self.list_homeo_state[i], self.data_classes[9]: self.list_reward_ID[i], self.data_classes[10]: self.list_reward_value[i], self.data_classes[11]: self.list_n_replays[i]})
+                csv_writer.writerow({self.data_classes[0]: self.list_trial_number[i], self.data_classes[1]: self.list_trial_time[i], self.data_classes[2]: self.list_frame_ID[i], self.data_classes[3]: self.list_embedding[i], self.data_classes[4]: self.list_robot_action[i], self.data_classes[5]: self.list_retrieved_action[i], self.data_classes[6]: self.list_X[i], self.data_classes[7]: self.list_Y[i], self.data_classes[8]: self.list_Z[i], self.data_classes[9]: self.list_homeo_state[i], self.data_classes[10]: self.list_reward_ID[i], self.data_classes[11]: self.list_reward_value[i], self.data_classes[12]: self.list_n_replays[i]})
 
 
     def clean_data(self):
@@ -254,6 +258,7 @@ class Data_gathering(Node):
         self.list_n_replays = []
         self.list_reward_value = []
         self.list_robot_action = []
+        self.list_retrieved_action = []
 
 
 

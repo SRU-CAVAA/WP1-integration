@@ -27,7 +27,7 @@ class ContextualLayer(object):
         self.max_collectors = [] #NOTE: To remove
 
         if load_LTM == True:
-            self.LTM = self.load_LTM()
+            self.LTM, self.triggers = self.load_LTM()
 
 
     def euclidean_similarity(self, array1, array2):
@@ -202,16 +202,17 @@ class ContextualLayer(object):
     def load_LTM(self):
         if self.LTM_loaded == False:
             loaded_LTM = [[], [], []]
+            loaded_seq_bias = []
             self.LTM_loaded = True
 
             if self.webots_world == 0:
-                csv_namefile = self.ws_path + '/data/OpenArena/LTM.csv'
+                csv_namefile = self.ws_path + '/data/Experiments/OpenArena/LTM.csv'
             if self.webots_world == 1:
-                csv_namefile = self.ws_path + '/data/LinearTrack/LTM.csv'
+                csv_namefile = self.ws_path + '/data/Experiments/LinearTrack/LTM.csv'
             if self.webots_world == 2:
-                csv_namefile = self.ws_path + '/data/Tmaze/LTM.csv'
+                csv_namefile = self.ws_path + '/data/Experiments/Tmaze/LTM.csv'
             if self.webots_world == 3:
-                csv_namefile = self.ws_path + '/data/DoubleTmaze/LTM.csv'
+                csv_namefile = self.ws_path + '/data/Experiments/Oldies/DoubleTmaze/3/LTM.csv'
 
             with open(csv_namefile, mode='r') as csv_file:
                 csv_reader = csv.DictReader(csv_file)
@@ -222,53 +223,64 @@ class ContextualLayer(object):
                     state = list(map(float, row['State'].split(',')))  # Convert state back to a list of floats
                     action = int(row['Action'])
                     reward = float(row['Reward'])
+                    bias = float(row['Seq_bias'])
 
                     if sequence != current_sequence:
                         loaded_LTM[0].append([])
                         loaded_LTM[1].append([])
+                        loaded_seq_bias.append([])
                         current_sequence = sequence
 
                     loaded_LTM[0][sequence].append(state)
                     loaded_LTM[1][sequence].append(action)
+                    loaded_seq_bias[sequence].append(bias)
 
                     if len(loaded_LTM[2]) <= sequence:
                         loaded_LTM[2].append(reward)
 
-            loaded_LTM = self.adjust_loaded_LTM(loaded_LTM)
-            self.triggers = self.load_triggers(loaded_LTM)
+            loaded_LTM, loaded_seq_bias = self.adjust_loaded_LTM(loaded_LTM, loaded_seq_bias)
             print("Long term memory loaded from " + csv_namefile)
 
-            return loaded_LTM
+            return loaded_LTM, loaded_seq_bias
 
-    def adjust_loaded_LTM(self, loaded_LTM):
+    def adjust_loaded_LTM(self, loaded_LTM, loaded_seq_bias):
         adjusted_LTM = [[], [], []]
+        adjusted_seq_bias = []
+
         LTM = loaded_LTM
+        seq_bias = loaded_seq_bias
         # if loaded LTM is longer than current LTM limit.
         if len(LTM[0]) > self.LTM_limit:
             LTM = [LTM[0][-self.LTM_limit:], LTM[1][-self.LTM_limit:], LTM[2][-self.LTM_limit:]]
+            seq_bias = seq_bias[-self.LTM_limit:]
 
         for i in range(len(LTM[0])):
             states = LTM[0][i]
             actions = LTM[1][i]
             reward = LTM[2][i]
+            bias = seq_bias[i]
 
             # if loaded STMs are longer than current STM limit
             if len(states) > self.STM_limit:
                 # Keep only the last max_sequence_steps states and actions
                 states = states[-self.STM_limit:]
                 actions = actions[-self.STM_limit:]
+                bias = bias[-self.STM_limit:]
 
             # if loaded STMs are shorter than current STM limit
             elif len(states) < self.STM_limit:
                 padding_states = [[0.0] * len(states[0])] * (self.STM_limit - len(states))
+                padding_bias = [[0.0] * len(bias[0])] * (self.STM_limit - len(bias))
                 states.extend(padding_states)
+                bias.extend(padding_bias)
 
 
             adjusted_LTM[0].append(states)
             adjusted_LTM[1].append(actions)
             adjusted_LTM[2].append(reward)
+            adjusted_seq_bias.append(bias)
 
-        return adjusted_LTM
+        return adjusted_LTM, adjusted_seq_bias
 
 
     #def load_triggers(self, loaded_LTM):

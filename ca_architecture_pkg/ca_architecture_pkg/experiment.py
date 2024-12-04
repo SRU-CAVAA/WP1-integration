@@ -101,6 +101,8 @@ class Experiment(Node):
             self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_3'))
         if self.reactive_layer_mode == 4:
             self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_4'))
+        if self.reactive_layer_mode == 5:
+            self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_5'))
 
 
 #----------------- ADAPTIVE LAYER PAPRAMETERS -----------------
@@ -374,6 +376,7 @@ class Experiment(Node):
             self.action = reactive_action
             wheel_r = self.reactive_layer_action_space[reactive_action][0]
             wheel_l = self.reactive_layer_action_space[reactive_action][1]
+            retrieved_action = False
 
         else:
             print('Retrieved action = ', contextual_action)
@@ -381,6 +384,7 @@ class Experiment(Node):
             self.action = contextual_action
             wheel_r = self.reactive_layer_action_space[contextual_action][0]
             wheel_l = self.reactive_layer_action_space[contextual_action][1]
+            retrieved_action = True
 
         if reactive_action == -1:
             wheel_r = 0.0
@@ -389,6 +393,7 @@ class Experiment(Node):
         command_message = EpuckMotors()
         command_message.right_motor = wheel_r
         command_message.left_motor = wheel_l
+        command_message.retrieved_action = retrieved_action
 
         self.Motor__publisher.publish(command_message)
 
