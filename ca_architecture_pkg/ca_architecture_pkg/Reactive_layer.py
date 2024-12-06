@@ -28,8 +28,8 @@ class ReactiveLayer(object):
     def update_prox_sens(self, ps_data):
         self.prox_sensors = [ps_data[0], ps_data[1], ps_data[2],ps_data[5], ps_data[6], ps_data[7]]
 
-        self.right_prox_sensors = [ps_data[0], ps_data[1], ps_data[2]]
-        self.left_prox_sensors = [ps_data[5], ps_data[6], ps_data[7]]
+        self.right_prox_sensors = [ps_data[0], ps_data[1]]
+        self.left_prox_sensors = [ps_data[6], ps_data[7]]
 
 
     def get_visual_observation(self, ws_path, frame, env):
@@ -83,7 +83,7 @@ class ReactiveLayer(object):
         if self.obstacle == True:
             action = random.randrange(0,3)
             if self.obstacle_right == False:
-                action += 6
+                action += self.robot_action_space - 3
         return(action)
 
 

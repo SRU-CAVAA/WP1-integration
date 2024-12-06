@@ -103,6 +103,8 @@ class Experiment(Node):
             self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_4'))
         if self.reactive_layer_mode == 5:
             self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_5'))
+        if self.reactive_layer_mode == 6:
+            self.reactive_layer_action_space = ast.literal_eval(parameters.get('Reactive_Layer', 'action_space_mode_6'))
 
 
 #----------------- ADAPTIVE LAYER PAPRAMETERS -----------------
