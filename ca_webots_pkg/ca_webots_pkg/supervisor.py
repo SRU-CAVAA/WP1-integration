@@ -69,7 +69,7 @@ class Supervisor(Node):
         else:
             self.img_saving = False
 
-        if parameters.get('Supervisor', 'rand_start') == 'True':
+        if parameters.get('Experiment', 'rand_start') == 'True':
             self.rand_start = True
         else:
             self.rand_start = False

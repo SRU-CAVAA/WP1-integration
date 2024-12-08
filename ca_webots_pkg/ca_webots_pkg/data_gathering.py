@@ -49,6 +49,15 @@ class Data_gathering(Node):
                                     self.save_ae_model = False'''
         self.webots_world = int(parameters.get('Experiment', 'webots_world'))
 
+        if parameters.get('Experiment', 'rand_start') == 'True':
+            self.rand_start = True
+        else:
+            self.rand_start = False
+        if parameters.get('Adaptive_Layer', 'overrepresented_autoencoder') == 'True':
+            self.overrepresented_AE = True
+        else:
+            self.overrepresented_AE = False
+
         self.sim_time_diff = 0
         self.init_sim_time = 0
 
@@ -215,7 +224,13 @@ class Data_gathering(Node):
 
     def create_new_folder(self):
         if self.webots_world == 0:
-            self.data_folder = ws_path + '/data/Experiments/OpenArena/'
+            if self.rand_start == True:
+                if self.overrepresented_AE == True: self.data_folder = ws_path + '/data/Experiments/OpenArena/Random_start_overrepresented/'
+                else: self.data_folder = ws_path + '/data/Experiments/OpenArena/Random_start/'
+            else:
+                if self.overrepresented_AE == True: self.data_folder = ws_path + '/data/Experiments/OpenArena/Fixed_start_overrepresented/'
+                else: self.data_folder = ws_path + '/data/Experiments/OpenArena/Fixed_start/'
+
         if self.webots_world == 1:
             self.data_folder = ws_path + '/data/Experiments/LinearTrack/'
         if self.webots_world == 2:
