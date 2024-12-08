@@ -60,6 +60,11 @@ class Experiment(Node):
 
         self.AEunit_max = 30000
 
+        if parameters.get('Experiment', 'rand_start') == 'True':
+            self.rand_start = True
+        else:
+            self.rand_start = False
+
 #----------------- REACTIVE LAYER PAPRAMETERS -----------------
         self.state_action_rate = float(parameters.get('Reactive_Layer', 'state_action_rate'))
         if parameters.get('Reactive_Layer', 'obstacle_avoidance') == 'True':
@@ -115,6 +120,10 @@ class Experiment(Node):
             self.motivational_AE = True
         else:
             self.motivational_AE = False
+        if parameters.get('Adaptive_Layer', 'overrepresented_autoencoder') == 'True':
+            self.overrepresented_AE = True
+        else:
+            self.overrepresented_AE = False
         if parameters.get('Adaptive_Layer', 'AE_retrain') == 'True':
             self.AE_retrain = True
         else:
@@ -132,7 +141,7 @@ class Experiment(Node):
 
         if self.webots_world == 0:
             self.n_hidden = int(n_hidden_list[0])
-            if self.motivational_AE: self.model_filename = ws_path + '/AE_models/' + model_list[0]
+            if self.overrepresented_AE: self.model_filename = ws_path + '/AE_models/' + model_list[1]
             else:self.model_filename = ws_path + '/AE_models/' + model_list[0]
 
         if self.webots_world == 1:
@@ -142,13 +151,13 @@ class Experiment(Node):
 
         if self.webots_world == 2:
             self.n_hidden = int(n_hidden_list[2])
-            if self.motivational_AE: self.model_filename = ws_path + '/AE_models/' + model_list[1]
-            else:self.model_filename = ws_path + '/AE_models/' + model_list[2]
+            if self.motivational_AE: self.model_filename = ws_path + '/AE_models/' + model_list[2]
+            else:self.model_filename = ws_path + '/AE_models/' + model_list[3]
 
         if self.webots_world == 3:
             self.n_hidden = int(n_hidden_list[3])
-            if self.motivational_AE: self.model_filename = ws_path + '/AE_models/' + model_list[3]
-            else:self.model_filename = ws_path + '/AE_models/' + model_list[4]
+            if self.motivational_AE: self.model_filename = ws_path + '/AE_models/' + model_list[4]
+            else:self.model_filename = ws_path + '/AE_models/' + model_list[5]
         
 
 
@@ -455,7 +464,13 @@ class Experiment(Node):
 #----------------- EXPERIMENT CONTROL FUNCTIONS -----------------
     def find_data_folder(self):
         if self.webots_world == 0:
-            self.data_folder = ws_path + '/data/Experiments/OpenArena/'
+            if self.rand_start == True:
+                if self.overrepresented_AE == True: self.data_folder = ws_path + '/data/Experiments/OpenArena/Random_start_overrepresented/'
+                else: self.data_folder = ws_path + '/data/Experiments/OpenArena/Random_start/'
+            else:
+                if self.overrepresented_AE == True: self.data_folder = ws_path + '/data/Experiments/OpenArena/Fixed_start_overrepresented/'
+                else: self.data_folder = ws_path + '/data/Experiments/OpenArena/Fixed_start/'
+
         if self.webots_world == 1:
             self.data_folder = ws_path + '/data/Experiments/LinearTrack/'
         if self.webots_world == 2:
