@@ -309,21 +309,21 @@ class Supervisor(Node):
         self.Time_reset()
 
     def Reward_catching(self):
-        if self.webots_world == 0:
+        if self.webots_world == 0 and self.experiment_status == 1:
             if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
                 if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
                     self.reward_ID = 1
                     rewardball = 'rewardball_green'
                     print('------- GREEN REWARD CAPTURED -------')
 
-        if self.webots_world == 1:
+        if self.webots_world == 1 and self.experiment_status == 1:
             if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
                 if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
                     self.reward_ID = 1
                     rewardball = 'rewardball_green'
                     print('------- GREEN REWARD CAPTURED -------')
 
-        if self.webots_world >= 2:
+        if self.webots_world >= 2 and self.experiment_status == 1:
             if self.agent_x_position > self.Blue_reward_X - self.reset_reward_margin:
                 if self.agent_y_position > self.Blue_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Blue_reward_Y + self.reset_reward_margin:
                     self.reward_ID = 2
@@ -336,7 +336,7 @@ class Supervisor(Node):
                     rewardball = 'rewardball_red'
                     print('------- RED REWARD CAPTURED -------')
                 
-        if self.webots_world >= 3:
+        if self.webots_world >= 3 and self.experiment_status == 1:
             if self.agent_x_position < self.Purple_reward_X + self.reset_reward_margin:
                 if self.agent_y_position > self.Purple_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Purple_reward_Y + self.reset_reward_margin:
                     self.reward_ID = 4
