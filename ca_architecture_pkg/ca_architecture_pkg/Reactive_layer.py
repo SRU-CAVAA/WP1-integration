@@ -4,7 +4,8 @@ from PIL import Image
 
 class ReactiveLayer(object):
 
-    def __init__(self, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
+    def __init__(self, webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
+        self.webots_world = webots_world
         self.mode = mode
         self.robot_action_space = len(action_space)
         self.obstacle_avoidance_ON = obstacle_avoidance
@@ -26,20 +27,24 @@ class ReactiveLayer(object):
 
 
     def update_prox_sens(self, ps_data):
-        self.prox_sensors = [ps_data[0], ps_data[1], ps_data[2],ps_data[5], ps_data[6], ps_data[7]]
+        if self.webots_world != 4: #NOTE: Just testing, it might be != 3
+            self.prox_sensors = [ps_data[0], ps_data[1], ps_data[6], ps_data[7]]
+            self.right_prox_sensors = [ps_data[0], ps_data[1]]
+            self.left_prox_sensors = [ps_data[5], ps_data[6]]
+        else:
+            self.prox_sensors = [ps_data[0], ps_data[1], ps_data[2],ps_data[5], ps_data[6], ps_data[7]]
+            self.right_prox_sensors = [ps_data[0], ps_data[1], ps_data[2]]
+            self.left_prox_sensors = [ps_data[5], ps_data[6], ps_data[7]]
 
-        self.right_prox_sensors = [ps_data[0], ps_data[1]]
-        self.left_prox_sensors = [ps_data[6], ps_data[7]]
 
-
-    def get_visual_observation(self, ws_path, frame, env):
-        if env == 0:
+    def get_visual_observation(self, ws_path, frame):
+        if self.webots_world == 0:
             path = '/data/OpenArena/'
-        if env == 1:
+        if self.webots_world == 1:
             path = '/data/LinearTrack/'
-        if env == 2:
+        if self.webots_world == 2:
             path = '/data/Tmaze/'
-        if env == 3:
+        if self.webots_world == 3:
             path = '/data/DoubleTmaze/'
 
         path = ws_path + path

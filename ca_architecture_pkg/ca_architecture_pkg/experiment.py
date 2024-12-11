@@ -176,15 +176,15 @@ class Experiment(Node):
         
 #----------------- LOAD AGENT MODE -----------------
         if self.agent_mode == 1:
-            self.agent = ReactiveAgent(mode=self.reactive_layer_mode, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs)
+            self.agent = ReactiveAgent(webots_world=self.webots_world, mode=self.reactive_layer_mode, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs)
         
         if self.agent_mode == 2:
-            self.agent = AdaptiveAgent(mode=self.reactive_layer_mode, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs)
+            self.agent = AdaptiveAgent(webots_world=self.webots_world, mode=self.reactive_layer_mode, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs)
             self.agent.load_AE_model(model=self.model_filename, n_hidden=self.n_hidden, motivational_AE=self.motivational_AE, motiv_I_len=self.motiv_I_len)
 
         
         if self.agent_mode == 3:
-            self.agent = ContextualAgent(mode=self.reactive_layer_mode, webots_world=self.webots_world, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs,
+            self.agent = ContextualAgent(webots_world=self.webots_world, mode=self.reactive_layer_mode, action_space=self.reactive_layer_action_space, obstacle_avoidance=self.obstacle_avoidance, avoidance_dist=self.avoidance_dist, img_saving=self.img_saving, n_needs=self.n_needs,
                 STM_limit=self.STM_limit, LTM_limit=self.LTM_limit, n_hidden=self.n_hidden, alpha_tr=self.alpha_tr , coll_thres_abs=self.coll_thres_abs , coll_thres_prop=self.coll_thres_prop , tau_decay=self.tau_decay, load_LTM=self.load_LTM, ws_path=ws_path)
             self.agent.load_AE_model(model=self.model_filename, n_hidden=self.n_hidden, motivational_AE=self.motivational_AE, motiv_I_len=self.motiv_I_len)
             
@@ -311,7 +311,7 @@ class Experiment(Node):
 
                 self.ps_data = [self.ps0, self.ps1, self.ps2, self.ps3, self.ps4, self.ps5, self.ps6, self.ps7]
                 self.ros_update_robot_prox_sensors()
-                self.frame_ID, self.RGB_img = self.agent.get_visual_observation(ws_path, self.frame, self.webots_world)
+                self.frame_ID, self.RGB_img = self.agent.get_visual_observation(ws_path, self.frame)
                 self.ros_visual_observation()
                 self.reactive_action = self.agent.random_action()
 

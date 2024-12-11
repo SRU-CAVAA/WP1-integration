@@ -5,15 +5,15 @@ from Contextual_layer import ContextualLayer
 
 
 class ReactiveAgent(object):
-    def __init__(self, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
-        self.Reactive_Layer = ReactiveLayer(mode=mode, action_space=action_space, obstacle_avoidance=obstacle_avoidance, avoidance_dist=avoidance_dist, img_saving=img_saving, n_needs=n_needs)
+    def __init__(self, webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
+        self.Reactive_Layer = ReactiveLayer(webots_world=webots_world, mode=mode, action_space=action_space, obstacle_avoidance=obstacle_avoidance, avoidance_dist=avoidance_dist, img_saving=img_saving, n_needs=n_needs)
         
 
     def update_prox_sensors(self, ps_data):
         self.Reactive_Layer.update_prox_sens(ps_data)
 
-    def get_visual_observation(self, ws_path, frame, env):
-        frame_ID, RGB_img = self.Reactive_Layer.get_visual_observation(ws_path, frame, env)
+    def get_visual_observation(self, ws_path, frame):
+        frame_ID, RGB_img = self.Reactive_Layer.get_visual_observation(ws_path, frame)
         return frame_ID, RGB_img
 
     def random_action(self):
@@ -39,8 +39,8 @@ class ReactiveAgent(object):
 
 
 class AdaptiveAgent(ReactiveAgent):
-    def __init__(self, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
-        super().__init__(mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs)
+    def __init__(self, webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs):
+        super().__init__(webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs)
         self.Adaptive_Layer = AdaptiveLayer()
 
 
@@ -60,8 +60,8 @@ class AdaptiveAgent(ReactiveAgent):
 
 
 class ContextualAgent(AdaptiveAgent):
-    def __init__(self, mode, webots_world, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs, STM_limit, LTM_limit, n_hidden, alpha_tr, coll_thres_abs, coll_thres_prop, tau_decay, load_LTM, ws_path):
-        super().__init__(mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs)
+    def __init__(self, webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs, STM_limit, LTM_limit, n_hidden, alpha_tr, coll_thres_abs, coll_thres_prop, tau_decay, load_LTM, ws_path):
+        super().__init__(webots_world, mode, action_space, obstacle_avoidance, avoidance_dist, img_saving, n_needs)
         self.Contextual_Layer = ContextualLayer(webots_world, action_space, STM_limit, LTM_limit, n_hidden, alpha_tr, coll_thres_abs, coll_thres_prop, tau_decay, load_LTM, ws_path)
 
 
