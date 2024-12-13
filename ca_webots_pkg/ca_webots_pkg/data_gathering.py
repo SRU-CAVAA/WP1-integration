@@ -162,12 +162,16 @@ class Data_gathering(Node):
 
     
     def homeostasis_callback(self, message):
+        if self.webots_world == 0:
+            self.homeostatic_states = [message.state_1]
         if self.webots_world == 2:
             self.homeostatic_states = [message.state_1, message.state_2]
         if self.webots_world == 3:
             self.homeostatic_states = [message.state_1, message.state_2, message.state_3, message.state_4]
 
     def reward_value_callback(self, message):
+        if self.webots_world == 0:
+            self.reward_values = [message.reward_value_1]
         if self.webots_world == 2:
             self.reward_values = [message.reward_value_1, message.reward_value_2]
         if self.webots_world == 3:

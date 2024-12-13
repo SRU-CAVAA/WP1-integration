@@ -309,56 +309,56 @@ class Supervisor(Node):
         self.Time_reset()
 
     def Reward_catching(self):
-        if self.webots_world == 0 and self.experiment_status == 1:
-            if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
-                if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 1
-                    rewardball = 'rewardball_green'
-                    print('------- GREEN REWARD CAPTURED -------')
+        if self.sim_time > 2.0:
+            if self.webots_world == 0 and self.experiment_status == 1:
+                if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
+                    if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 1
+                        rewardball = 'rewardball_green'
+                        print('------- GREEN REWARD CAPTURED -------')
 
-        if self.webots_world == 1 and self.experiment_status == 1:
-            if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
-                if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 1
-                    rewardball = 'rewardball_green'
-                    print('------- GREEN REWARD CAPTURED -------')
+            if self.webots_world == 1 and self.experiment_status == 1:
+                if self.agent_x_position > self.Green_reward_X - self.reset_reward_margin and self.agent_x_position < self.Green_reward_X + self.reset_reward_margin:
+                    if self.agent_y_position > self.Green_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Green_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 1
+                        rewardball = 'rewardball_green'
+                        print('------- GREEN REWARD CAPTURED -------')
 
-        if self.webots_world >= 2 and self.experiment_status == 1:
-            if self.agent_x_position > self.Blue_reward_X - self.reset_reward_margin:
-                if self.agent_y_position > self.Blue_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Blue_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 2
-                    rewardball = 'rewardball_blue'
-                    print('------- BLUE REWARD CAPTURED -------')
+            if self.webots_world >= 2 and self.experiment_status == 1:
+                if self.agent_x_position > self.Blue_reward_X - self.reset_reward_margin:
+                    if self.agent_y_position > self.Blue_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Blue_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 2
+                        rewardball = 'rewardball_blue'
+                        print('------- BLUE REWARD CAPTURED -------')
 
-            if self.agent_x_position < self.Red_reward_X + self.reset_reward_margin:
-                if self.agent_y_position > self.Red_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Red_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 3
-                    rewardball = 'rewardball_red'
-                    print('------- RED REWARD CAPTURED -------')
-                
-        if self.webots_world >= 3 and self.experiment_status == 1:
-            if self.agent_x_position < self.Purple_reward_X + self.reset_reward_margin:
-                if self.agent_y_position > self.Purple_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Purple_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 4
-                    rewardball = 'rewardball_purple'
-                    print('------- PURPLE REWARD CAPTURED -------')
+                if self.agent_x_position < self.Red_reward_X + self.reset_reward_margin:
+                    if self.agent_y_position > self.Red_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Red_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 3
+                        rewardball = 'rewardball_red'
+                        print('------- RED REWARD CAPTURED -------')
+                    
+            if self.webots_world >= 3 and self.experiment_status == 1:
+                if self.agent_x_position < self.Purple_reward_X + self.reset_reward_margin:
+                    if self.agent_y_position > self.Purple_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Purple_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 4
+                        rewardball = 'rewardball_purple'
+                        print('------- PURPLE REWARD CAPTURED -------')
 
-            if self.agent_x_position > self.Orange_reward_X - self.reset_reward_margin:
-                if self.agent_y_position > self.Orange_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Orange_reward_Y + self.reset_reward_margin:
-                    self.reward_ID = 5
-                    rewardball = 'rewardball_orange'
-                    print('------- ORANGE REWARD CAPTURED -------')
+                if self.agent_x_position > self.Orange_reward_X - self.reset_reward_margin:
+                    if self.agent_y_position > self.Orange_reward_Y - self.reset_reward_margin and self.agent_y_position < self.Orange_reward_Y + self.reset_reward_margin:
+                        self.reward_ID = 5
+                        rewardball = 'rewardball_orange'
+                        print('------- ORANGE REWARD CAPTURED -------')
 
+            if self.reward_ID != 0:
+                self.last_reward = self.reward_ID
+                self.remove_Node(rewardball)
+                msg = RewardID()
+                msg.reward_id = self.reward_ID
+                self.pub_reward_ID.publish(msg)
+                self.reward_ID = 0
 
-        if self.reward_ID != 0:
-            self.last_reward = self.reward_ID
-            self.remove_Node(rewardball)
-            msg = RewardID()
-            msg.reward_id = self.reward_ID
-            self.pub_reward_ID.publish(msg)
-            self.reward_ID = 0
-
-            self.update_experiment_status(2)
+                self.update_experiment_status(2)
 
 
 
